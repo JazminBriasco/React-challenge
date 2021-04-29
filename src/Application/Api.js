@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import axios from 'axios';
 
 const urlToken = 'http://challenge-react.alkemy.org';
@@ -23,7 +22,7 @@ export function getToken (email, password){
 //Makes a call to get 200 heroes from super hero api. Its just 50 because the speed.
 export function getHeroes(){
     let her = [];
-    for( let i = 0; i < 10; i++){   
+    for( let i = 0; i < 50; i++){   
         axios.get(`${urlHeroes}/${id}/${i}`).then(res => {
             if(res.data.response !== "error"){ 
                 her.push(JSON.stringify(res.data));

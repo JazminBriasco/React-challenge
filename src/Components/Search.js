@@ -5,16 +5,21 @@ import {searchHero, getHeroes} from '../Application/Api.js';
 
 const Search = () =>{
     
-    const [hero, setHero] = useState([]);
+    const buttonJoin = document.querySelector('#join');
 
+    const [hero, setHero] = useState([]);
+    let cant = 0;
     //View all heroes
     useEffect (()=>{
         getHeroes();
         const heroesObjects = JSON.parse(localStorage.getItem('heroes'));
         setHero(heroesObjects);
+        
     }, []);
     
-    console.log(hero);
+    cant = JSON.parse(localStorage.getItem('team'));
+    
+    if(cant){ cant = cant.length;}
 
     /* searchHero('Abomination'); */
 
@@ -30,6 +35,7 @@ const Search = () =>{
         if(content){
             let data = JSON.parse(content);
             var bool = false;
+            if(data){
             for(var i=0; i<data.length; i++) {
                 for(var j=0; j<data[i].length; j++) {
                     console.log(data[i][j].id);
@@ -38,13 +44,24 @@ const Search = () =>{
                         bool = true;
                     }
                 }
-            }
+            }}
             if(bool){
                 alert(aux[0].name + ' is already on your team!');
             }else{
-                data.push(aux);
-                localStorage.setItem('team', JSON.stringify(data)); 
-                alert(aux[0].name + ' is now on your team!');
+                console.log('cant ' + cant);
+                if(cant <= 4 ){
+                    data.push(aux);
+                    localStorage.setItem('team', JSON.stringify(data)); 
+                    alert(aux[0].name + ' is now on your team!');
+                    cant++;
+                }else{
+
+                    console.log('cant ' + cant);
+                    alert('Maximum members reached');
+                    window.location.reload();
+
+                    return;
+                }
             }
         }else{
             localStorage.setItem('team', JSON.stringify(aux));  
@@ -80,29 +97,8 @@ const Search = () =>{
                                         'Occupation: ' + val.work.occupation + '\n' +
                                         'Work: ' + val.work.base 
                                     )}>More</button>
-                                    <button className="btn btn-primary" onClick={() =>join(val.id)}>Join</button>
+                                    {cant < 5 ? <button className="btn btn-primary " id="join" onClick={() =>join(val.id)}>Join</button> : null}
 
-                        {/*              
-                        <div className="container">
-                            <div className="modal" tabindex="-1" id="modal1">
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            encabezado
-                                        </div>
-                                        <div className="modal-body">
-                                            encabezado2
-                                        </div>
-                                        <div className="modal-footer">
-                                            encabezadof
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button className="btn" type="button" data-toggle="modal" data-target="#modal1">Mostrar</button>
-
-                        </div> */}
                             </div>
 
                             

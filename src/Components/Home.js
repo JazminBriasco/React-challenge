@@ -4,46 +4,74 @@ import {getHeroes} from '../Application/Api';
 /**This component shows the heroes in your team */
 
 const Home = () =>{
-  /*   
-    const [hero, setHero] = useState([]);
 
+//Consts
+    const [hero, setHero] = useState([]);
+    let array = [];
+
+//Bring the team
     useEffect (()=>{
         getHeroes();
-        const heroesObjects = JSON.parse(localStorage.getItem('heroes'));
+        let heroesObjects = localStorage.getItem('team');
+        if (heroesObjects){   heroesObjects = heroesObjects.replaceAll('-', '_') };
+        
+        localStorage.setItem('team', heroesObjects); 
+        heroesObjects = JSON.parse(localStorage.getItem('team'));
+        
+
         setHero(heroesObjects);
+        
+        if (heroesObjects){
+        for(var i=0; i<heroesObjects.length; i++) {
+            for(var j=0; j<heroesObjects[i].length; j++) {
+                array.push(heroesObjects[i][j]);
+                setHero(array);
+            }
+        }}
     }, []);
-    
-    console.log(hero); */
-    var hero = null;
+
+
+
     return(
         <>
             <div className="container">
                 <div class="row justify-content-md-center">
                     <h1 className="display-4 text-center ">Team</h1>
-                    {hero ? hero.map((val)=>{ 
+
+                    {    
+                    hero ? hero.map((val)=>{ 
                         return<> 
                             <div className="text-center card m-5 w-25 mb-5 ">
                                 <h3>Name: {val.name}</h3> 
+                                <h3>Name: {val.id}</h3> 
                                 <img src={val.image.url} className="mb-3"/>
                                 <p>Intelligence: {val.powerstats.intelligence}</p>
                                 <p>Strength: {val.powerstats.strength}</p>
                                 <p>Speed: {val.powerstats.speed}</p>
                                 <p>Durability: {val.powerstats.durability}</p>
                                 <p>Power: {val.powerstats.power}</p>
-                                <button onClick={() =>alert(
+                                <button className="btn btn-primary" onClick={() =>alert(
                                         'Gender: ' + val.appearance.gender + '\n' +
                                         'Race: ' + val.appearance.race + '\n' +
+                                        'Eye color: ' + val.appearance.eye_color + '\n' +
+                                        'Hair color: ' + val.appearance.hair_color + '\n' +
                                         'Height: ' + val.appearance.height[1] + '\n' +
                                         'Weight: ' + val.appearance.weight[1] + '\n' +
                                         '\n' +
                                         'Aliases: ' + val.biography.aliases[0] + '\n' +
                                         'Aligment: ' + val.biography.alignment + '\n' +
+                                        'Alter Ego: ' + val.biography.alter_egos + '\n' +
+                                        'First appearance: ' + val.biography.first_appearance + '\n' +
+                                        'Full name: ' + val.biography.full_name + '\n' +
+                                        'Birth: ' + val.biography.place_of_birth + '\n' +
+                                        'Publisher: ' + val.biography.publisher + '\n' +
                                         '\n' +
+                                        'Affiliaton: ' + val.connections.group_affiliation + '\n' +
                                         'Relatices: ' + val.connections.relatives + '\n' +
                                         '\n' +
                                         'Occupation: ' + val.work.occupation + '\n' +
                                         'Work: ' + val.work.base 
-                                    )}></button>
+                                    )}>More</button> 
 
                         {/*              
                         <div className="container">
