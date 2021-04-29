@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {getHeroes} from '../Application/Api';
 
+/**This component shows the heroes in your team */
 
 const Home = () =>{
-    
+  /*   
     const [hero, setHero] = useState([]);
 
     useEffect (()=>{
@@ -12,14 +13,14 @@ const Home = () =>{
         setHero(heroesObjects);
     }, []);
     
-    console.log(hero);
-    
+    console.log(hero); */
+    var hero = null;
     return(
         <>
             <div className="container">
                 <div class="row justify-content-md-center">
-                    <h1 className="display-4 text-center ">Heroes</h1>
-                    {hero.map((val)=>{ 
+                    <h1 className="display-4 text-center ">Team</h1>
+                    {hero ? hero.map((val)=>{ 
                         return<> 
                             <div className="text-center card m-5 w-25 mb-5 ">
                                 <h3>Name: {val.name}</h3> 
@@ -69,7 +70,7 @@ const Home = () =>{
 
                             
                         </>
-                    })}
+                    }) : null}
                 </div>
             </div>
         </>
