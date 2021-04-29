@@ -1,5 +1,6 @@
 import React, {useState, useEffect}  from 'react';
 import {searchHero, getHeroes} from '../Application/Api.js';
+import Card from '../Components/Card.js';
 
 /**This component shows the heroes form the api that you can join in the team */
 
@@ -49,7 +50,7 @@ const Search = () =>{
                 alert(aux[0].name + ' is already on your team!');
             }else{
                 console.log('cant ' + cant);
-                if(cant <= 4 ){
+                if(cant <= 5 ){
                     data.push(aux);
                     localStorage.setItem('team', JSON.stringify(data)); 
                     alert(aux[0].name + ' is now on your team!');
@@ -76,27 +77,9 @@ const Search = () =>{
                     {hero ? hero.map((val)=>{ 
                         return<> 
                             <div className="text-center card m-5 w-25 mb-5 ">
-                                <h3>Name: {val.name}</h3> 
-                                <img src={val.image.url} className="mb-3"/>
-                                <p>Intelligence: {val.powerstats.intelligence}</p>
-                                <p>Strength: {val.powerstats.strength}</p>
-                                <p>Speed: {val.powerstats.speed}</p>
-                                <p>Durability: {val.powerstats.durability}</p>
-                                <p>Power: {val.powerstats.power}</p>
-                                <button className="btn btn-secondary" onClick={() =>alert(
-                                        'Gender: ' + val.appearance.gender + '\n' +
-                                        'Race: ' + val.appearance.race + '\n' +
-                                        'Height: ' + val.appearance.height[1] + '\n' +
-                                        'Weight: ' + val.appearance.weight[1] + '\n' +
-                                        '\n' +
-                                        'Aliases: ' + val.biography.aliases[0] + '\n' +
-                                        'Aligment: ' + val.biography.alignment + '\n' +
-                                        '\n' +
-                                        'Relatices: ' + val.connections.relatives + '\n' +
-                                        '\n' +
-                                        'Occupation: ' + val.work.occupation + '\n' +
-                                        'Work: ' + val.work.base 
-                                    )}>More</button>
+                            <Card
+                            val={val}
+                            ></Card>
                                     {cant < 5 ? <button className="btn btn-primary " id="join" onClick={() =>join(val.id)}>Join</button> : null}
 
                             </div>

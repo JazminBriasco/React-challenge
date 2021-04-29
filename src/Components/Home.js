@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {getHeroes} from '../Application/Api';
+import Card from '../Components/Card.js';
+
+import NotData from '../Components/NotData.js';
+
 
 /**This component shows the heroes in your team */
 
@@ -42,36 +46,9 @@ const Home = () =>{
                     hero ? hero.map((val)=>{ 
                         return<> 
                             <div className="text-center card m-5 w-25 mb-5 ">
-                                <h3>Name: {val.name}</h3> 
-                                <h3>Name: {val.id}</h3> 
-                                <img src={val.image.url} className="mb-3"/>
-                                <p>Intelligence: {val.powerstats.intelligence}</p>
-                                <p>Strength: {val.powerstats.strength}</p>
-                                <p>Speed: {val.powerstats.speed}</p>
-                                <p>Durability: {val.powerstats.durability}</p>
-                                <p>Power: {val.powerstats.power}</p>
-                                <button className="btn btn-primary" onClick={() =>alert(
-                                        'Gender: ' + val.appearance.gender + '\n' +
-                                        'Race: ' + val.appearance.race + '\n' +
-                                        'Eye color: ' + val.appearance.eye_color + '\n' +
-                                        'Hair color: ' + val.appearance.hair_color + '\n' +
-                                        'Height: ' + val.appearance.height[1] + '\n' +
-                                        'Weight: ' + val.appearance.weight[1] + '\n' +
-                                        '\n' +
-                                        'Aliases: ' + val.biography.aliases[0] + '\n' +
-                                        'Aligment: ' + val.biography.alignment + '\n' +
-                                        'Alter Ego: ' + val.biography.alter_egos + '\n' +
-                                        'First appearance: ' + val.biography.first_appearance + '\n' +
-                                        'Full name: ' + val.biography.full_name + '\n' +
-                                        'Birth: ' + val.biography.place_of_birth + '\n' +
-                                        'Publisher: ' + val.biography.publisher + '\n' +
-                                        '\n' +
-                                        'Affiliaton: ' + val.connections.group_affiliation + '\n' +
-                                        'Relatices: ' + val.connections.relatives + '\n' +
-                                        '\n' +
-                                        'Occupation: ' + val.work.occupation + '\n' +
-                                        'Work: ' + val.work.base 
-                                    )}>More</button> 
+                            <Card
+                            val={val}
+                            ></Card>
 
                         {/*              
                         <div className="container">
@@ -98,7 +75,7 @@ const Home = () =>{
 
                             
                         </>
-                    }) : null}
+                    }) : <NotData/>}
                 </div>
             </div>
         </>
